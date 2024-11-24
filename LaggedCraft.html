@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Walkable Area</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { background: #87CEEB; display: block; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let playerSize = 20; // Size of the player square
+        let player = { x: canvas.width / 2, y: canvas.height / 2 };
+
+        function drawPlayer() {
+            ctx.fillStyle = 'red';
+            ctx.fillRect(player.x, player.y, playerSize, playerSize);
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function update() {
+            clearCanvas();
+            drawPlayer();
+        }
+
+        function movePlayer(dx, dy) {
+            player.x += dx;
+            player.y += dy;
+            update();
+        }
+
+        window.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowUp':
+                    movePlayer(0, -5); // Move up
+                    break;
+                case 'ArrowDown':
+                    movePlayer(0, 5); // Move down
+                    break;
+                case 'ArrowLeft':
+                    movePlayer(-5, 0); // Move left
+                    break;
+                case 'ArrowRight':
+                    movePlayer(5, 0); // Move right
+                    break;
+            }
+        });
+
+        update(); // Initial draw
+    </script>
+</body>
+</html>
